@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity { // Declara MainActivity, q
 
 
                 // Cria um objeto Cliente com os dados inseridos.
-                Cliente cliente = new Cliente(nome, email, telefone, senha, null); // O id é gerado automaticamente.
+                Cliente cliente = new Cliente(nome, email, telefone, senha); // O id é gerado automaticamente.
 
                 // Cria uma Intent para enviar o objeto Cliente para a DetalheClienteActivity.
                 Intent intent = new Intent(MainActivity.this, DetalheClienteActivity.class);

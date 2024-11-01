@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat; // Importa WindowInsetsCompat para
 import com.example.pim_raizesurbanas.R;
 
 import model.Cliente;
+import services.ClienteApiService;
 
 public class DetalheClienteActivity extends AppCompatActivity { // Declara DetalheClienteActivity, que herda de AppCompatActivity.
 
@@ -55,6 +56,11 @@ public class DetalheClienteActivity extends AppCompatActivity { // Declara Detal
         btnConfirmarCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    ClienteApiService.addCliente(cliente);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
                 Toast.makeText(DetalheClienteActivity.this, "Cadastro confirmado com sucesso", Toast.LENGTH_SHORT).show(); // Exibe mensagem.
             }
         });
