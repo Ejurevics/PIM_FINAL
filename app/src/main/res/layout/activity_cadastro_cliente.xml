@@ -36,37 +36,38 @@
         app:layout_constraintWidth_percent="0.9" />
 
     <EditText
-        android:id="@+id/txtEmail"
+        android:id="@+id/txtNome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Digite seu e-mail"
-        android:inputType="textEmailAddress"
+        android:layout_marginTop="196dp"
+        android:hint="Qual seu nome?"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.9"
-        app:layout_constraintTop_toBottomOf="@id/lblMinhaAula" /> <!-- Atualizado para referenciar o TextView -->
+        app:layout_constraintTop_toBottomOf="@id/lblMinhaAula"
+        app:layout_constraintWidth_percent="0.9" />
 
     <EditText
-        android:id="@+id/txtSenha"
+        android:id="@+id/txtTelefone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Digite sua senha"
-        android:inputType="textPassword"
+        android:layout_marginTop="12dp"
+        android:hint="Digite seu telefone"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtEmail"
+        app:layout_constraintTop_toBottomOf="@id/txtNome"
         app:layout_constraintWidth_percent="0.9" />
 
     <Button
         android:id="@+id/buttonSubmit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#4CAF50"
-        android:text="Entrar"
+        android:text="Enviar"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
@@ -74,18 +75,30 @@
         app:layout_constraintTop_toBottomOf="@id/txtSenha"
         app:layout_constraintWidth_percent="0.9" />
 
-    <Button
-        android:id="@+id/buttonSubmit2"
+    <EditText
+        android:id="@+id/txtSenha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#0E5315"
-        android:text="Cadastrar"
-        android:textColor="#FFFFFF"
+        android:layout_marginTop="20dp"
+        android:hint="Digite sua senha"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonSubmit"
+        app:layout_constraintTop_toBottomOf="@id/txtEmail"
+        app:layout_constraintWidth_percent="0.9" />
+
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Digite seu e-mail"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTelefone"
         app:layout_constraintWidth_percent="0.9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

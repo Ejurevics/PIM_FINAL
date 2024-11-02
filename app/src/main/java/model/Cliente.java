@@ -3,22 +3,25 @@ package model;
 import java.io.Serializable;
 
 public class Cliente implements Serializable {
-    private static int contador = 0; // Contador estático para gerar IDs únicos
+    private static int contador = 0;
     private int id;
     private String nome;
     private String email;
     private String senha;
     private String telefone;
-    private Endereco endereco;
+    //private Endereco endereco;
+
+    public Cliente(){
+        this.id = ++contador;
+    }
 
     // Construtor
-    public Cliente(String nome, String email, String telefone, String senha, Endereco endereco) {
-        this.id = ++contador; // Incrementa o contador e atribui ao id
+    public Cliente(String nome, String email, String telefone, String senha) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.senha = senha;
-        this.endereco = endereco;
+        //this.endereco = endereco;
     }
 
     // Getters e Setters
@@ -37,6 +40,6 @@ public class Cliente implements Serializable {
     public String getTelefone() { return telefone; }
     public void setTelefone(String telefone) { this.telefone = telefone; }
 
-    public Endereco getEndereco() { return endereco; }
-    public void setEndereco(Endereco endereco) { this.endereco = endereco; }
+    /*public Endereco getEndereco() { return endereco; }
+    public void setEndereco(Endereco endereco) { this.endereco = endereco; }*/
 }
