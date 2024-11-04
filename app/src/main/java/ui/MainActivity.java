@@ -5,6 +5,8 @@ import android.os.Bundle; // Importa a classe Bundle para salvar e restaurar o e
 import android.view.View; // Importa a classe View, usada para capturar interações de interface.
 import android.widget.Button; // Importa a classe Button para criar botões na interface.
 import android.widget.EditText; // Importa a classe EditText para campos de entrada de texto.
+import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge; // Importa EdgeToEdge para otimizar o uso da tela cheia.
 import androidx.appcompat.app.AppCompatActivity; // Importa AppCompatActivity, que fornece compatibilidade entre versões do Android.
 import androidx.core.graphics.Insets; // Importa a classe Insets para gerenciar margens do sistema.
@@ -12,6 +14,9 @@ import androidx.core.view.ViewCompat; // Importa ViewCompat para lidar com confi
 import androidx.core.view.WindowInsetsCompat; // Importa WindowInsetsCompat para gerenciar margens do sistema em views.
 
 import com.example.pim_raizesurbanas.R;
+
+import model.Cliente;
+import services.ClienteApiService;
 
 public class MainActivity extends AppCompatActivity { // Declara MainActivity, que herda de AppCompatActivity.
 
@@ -39,19 +44,45 @@ public class MainActivity extends AppCompatActivity { // Declara MainActivity, q
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Captura os valores digitados nos campos.
-                String email = txtEmail.getText().toString();
-                String senha = txtSenha.getText().toString();
+                final String email = txtEmail.getText().toString();
+                final String senha = txtSenha.getText().toString();
 
-                // Consome api para verificar no BD
+                // Verifica se o email e senha não estão vazios.
+                if (email.isEmpty() || senha.isEmpty()) {
+                    // Exibe uma mensagem de erro (pode usar um Toast ou um AlertDialog).
+                    Toast.makeText(MainActivity.this, "Email e senha não podem estar vazios", Toast.LENGTH_SHORT).show();
+                    return; // Retorna se os campos estiverem vazios.
+                }
 
+                // Cria um objeto Cliente com as credenciais.
+                Cliente cliente = new Cliente();
+                cliente.setEmail(email);
+                cliente.setSenha(senha);
 
-                /*// Cria um objeto Cliente com os dados inseridos.
-                Cliente cliente = new Cliente(nome, email, telefone, senha); // O id é gerado automaticamente.
-                // Cria uma Intent para enviar o objeto Cliente para a DetalheClienteActivity.
-                Intent intent = new Intent(MainActivity.this, DetalheClienteActivity.class);
-                intent.putExtra("CLIENTE", cliente); // Adiciona o objeto Cliente à Intent.
-                startActivity(intent); // Inicia a DetalheClienteActivity.*/
+                // Consome a API para verificar se o cliente existe.
+                new Thread(() -> {
+                    try {
+                        // Chama o método para realizar o login e armazena a resposta.
+                        String resultadoLogin = ClienteApiService.loginCliente(cliente);
+
+                        runOnUiThread(() -> {
+                            if (resultadoLogin.equals("Login realizado com sucesso!")) {
+                                // Se o login foi bem-sucedido, inicia a ListaProdutosActivity.
+                                Intent intent = new Intent(MainActivity.this, ListaProdutosActivity.class);
+                                intent.putExtra("CLIENTE", cliente); // Adiciona o objeto Cliente à Intent.
+                                Toast.makeText(MainActivity.this, "Login confirmado com sucesso", Toast.LENGTH_SHORT).show();
+                                startActivity(intent); // Inicia a ListaProdutosActivity.
+                            } else {
+                                // Se o login falhar, exibe a mensagem de erro recebida.
+                                Toast.makeText(MainActivity.this, resultadoLogin, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        // Trate a exceção, como por exemplo, mostrar uma mensagem de erro ao usuário.
+                        runOnUiThread(() -> Toast.makeText(MainActivity.this, "Erro ao acessar o servidor", Toast.LENGTH_SHORT).show());
+                    }
+                }).start(); // Inicia a thread.
             }
         });
 

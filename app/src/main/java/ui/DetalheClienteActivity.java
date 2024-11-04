@@ -60,7 +60,6 @@ public class DetalheClienteActivity extends AppCompatActivity { // Declara Detal
             public void onClick(View v) {
                 // Chama a AsyncTask para adicionar o cliente em segundo plano.
                 Log.d("CadastroCliente", "Nome: " + textNome + ", Telefone: " + textTelefone + ", Email: " + textEmail + ", Senha: " + textSenha);
-
                 new AddClienteTask().execute(cliente);
             }
         });

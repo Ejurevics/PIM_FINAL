@@ -1,10 +1,12 @@
 package services;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -54,6 +56,59 @@ public class ClienteApiService {
             clientes.add(cliente); // Adiciona o cliente à lista.
         }
         return clientes; // Retorna a lista completa de clientes.
+    }
+
+    /**
+     * Método loginCliente()
+     *
+     * Propósito: Envia uma requisição HTTP POST para realizar o login de um cliente.
+     *
+     * @param cliente - Objeto Cliente contendo email e senha para autenticação.
+     * @return String - Mensagem indicando sucesso ou falha da operação.
+     * @throws Exception - Pode lançar exceções relacionadas a operações de rede e JSON.
+     */
+    public static String loginCliente(Cliente cliente) throws Exception {
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(BASE_URL + "/login"); // Cria a URL para o endpoint de login.
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true); // Permite enviar dados na requisição.
+
+            // Cria um objeto JSON com os dados do cliente.
+            JSONObject jsonCliente = new JSONObject();
+            jsonCliente.put("email", cliente.getEmail()); // Adiciona o email ao objeto JSON.
+            jsonCliente.put("senha", cliente.getSenha()); // Adiciona a senha ao objeto JSON.
+
+            // Envia o JSON com os dados do cliente.
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            writer.write(jsonCliente.toString());
+            writer.flush();
+            writer.close();
+
+            int responseCode = conn.getResponseCode(); // Obtém o código de resposta da requisição.
+            if (responseCode == HttpURLConnection.HTTP_OK) { // Verifica se a resposta foi bem-sucedida.
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder result = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+                reader.close();
+                return result.toString(); // Retorna a resposta da API.
+            } else {
+                return "Erro ao realizar login: " + responseCode; // Retorna mensagem de erro.
+            }
+        } catch (JSONException e) {
+            throw new Exception("Erro ao criar JSON: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new Exception("Erro de IO: " + e.getMessage(), e);
+        } finally {
+            if (conn != null) {
+                conn.disconnect(); // Fecha a conexão.
+            }
+        }
     }
 
     /**
