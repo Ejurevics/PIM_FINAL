@@ -1,6 +1,9 @@
 package ui;
 
+import android.content.Intent;
+import android.os.AsyncTask; // Importa AsyncTask para executar tarefas em segundo plano.
 import android.os.Bundle; // Importa a classe Bundle para salvar e restaurar o estado da Activity.
+import android.util.Log;
 import android.view.View; // Importa a classe View para interações da interface.
 import android.widget.Button; // Importa a classe Button para criar botões.
 import android.widget.TextView; // Importa a classe TextView para exibir texto.
@@ -12,12 +15,10 @@ import androidx.core.graphics.Insets; // Importa a classe Insets para manipular 
 import androidx.core.view.ViewCompat; // Importa ViewCompat para lidar com configurações de View.
 import androidx.core.view.WindowInsetsCompat; // Importa WindowInsetsCompat para configurar margens do sistema.
 
-
 import com.example.pim_raizesurbanas.R;
 
 import model.Cliente;
 import services.ClienteApiService;
-//import services.ClienteApiService;
 
 public class DetalheClienteActivity extends AppCompatActivity { // Declara DetalheClienteActivity, que herda de AppCompatActivity.
 
@@ -42,7 +43,7 @@ public class DetalheClienteActivity extends AppCompatActivity { // Declara Detal
         TextView textNome = findViewById(R.id.textNome); // Campo que exibe o nome.
         TextView textTelefone = findViewById(R.id.textTelefone); // Campo que exibe o telefone.
         TextView textEmail = findViewById(R.id.textEmail); // Campo que exibe o e-mail.
-        TextView textSenha = findViewById(R.id.textSenha);
+        TextView textSenha = findViewById(R.id.textSenha); // Campo que exibe a senha.
 
         // Se o objeto Cliente não for nulo, exibe os valores nos campos.
         if (cliente != null) {
@@ -57,23 +58,45 @@ public class DetalheClienteActivity extends AppCompatActivity { // Declara Detal
         btnConfirmarCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    ClienteApiService.addCliente(cliente);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-                Toast.makeText(DetalheClienteActivity.this, "Cadastro confirmado com sucesso", Toast.LENGTH_SHORT).show(); // Exibe mensagem.
+                // Chama a AsyncTask para adicionar o cliente em segundo plano.
+                Log.d("CadastroCliente", "Nome: " + textNome + ", Telefone: " + textTelefone + ", Email: " + textEmail + ", Senha: " + textSenha);
+
+                new AddClienteTask().execute(cliente);
             }
         });
 
-        // Botão Retornar, que fecha a Activity ao ser pressionado.
+        /*// Botão Retornar, que fecha a Activity ao ser pressionado.
         Button btnRetornarEditar = findViewById(R.id.btnRetornarEditar);
         btnRetornarEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish(); // Fecha a Activity, retornando à tela anterior.
             }
-        });
+        });*/
+    }
+
+    // AsyncTask para adicionar cliente em segundo plano
+    private class AddClienteTask extends AsyncTask<Cliente, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Cliente... clientes) {
+            try {
+                ClienteApiService.addCliente(clientes[0]); // Chama o método addCliente no serviço.
+                return true; // Retorna verdadeiro se a operação for bem-sucedida.
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false; // Retorna falso em caso de erro.
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                Toast.makeText(DetalheClienteActivity.this, "Cadastro confirmado com sucesso", Toast.LENGTH_SHORT).show(); // Exibe mensagem de sucesso.
+                Intent intent = new Intent(DetalheClienteActivity.this, MainActivity.class);
+                startActivity(intent); // Inicia a DetalheClienteActivity.
+            } else {
+                Toast.makeText(DetalheClienteActivity.this, "Falha ao confirmar cadastro", Toast.LENGTH_SHORT).show(); // Exibe mensagem de erro.
+            }
+        }
     }
 }
-

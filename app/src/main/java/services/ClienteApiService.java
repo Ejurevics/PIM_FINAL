@@ -76,6 +76,8 @@ public class ClienteApiService {
         JSONObject jsonCliente = new JSONObject();
         jsonCliente.put("nome", cliente.getNome()); // Adiciona o nome ao objeto JSON.
         jsonCliente.put("email", cliente.getEmail()); // Adiciona o email ao objeto JSON.
+        jsonCliente.put("senha", cliente.getSenha());
+        jsonCliente.put("telefone", cliente.getTelefone());
 
         // Envia o JSON com os dados do cliente.
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
