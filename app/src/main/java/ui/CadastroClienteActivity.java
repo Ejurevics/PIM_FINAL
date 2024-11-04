@@ -31,6 +31,7 @@ public class CadastroClienteActivity extends AppCompatActivity { // Declara Main
             return insets;
         });
 
+
         // Declara e inicializa os campos de entrada e o botão.
         EditText txtNome = findViewById(R.id.txtNome); // Campo para o nome.
         EditText txtTelefone = findViewById(R.id.txtTelefone); // Campo para o telefone.

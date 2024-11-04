@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity { // Declara MainActivity, q
             return insets;
         });
 
+
         // Declara e inicializa os campos de entrada e o botão.
         EditText txtEmail = findViewById(R.id.txtEmail); // Campo para o e-mail.
         EditText txtSenha = findViewById(R.id.txtSenha); // Campo para a senha.
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity { // Declara MainActivity, q
                 String email = txtEmail.getText().toString();
                 String senha = txtSenha.getText().toString();
 
-                // Consome api para virificar no BD
+                // Consome api para verificar no BD
 
 
                 /*// Cria um objeto Cliente com os dados inseridos.

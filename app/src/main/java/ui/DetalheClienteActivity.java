@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat; // Importa WindowInsetsCompat para
 import com.example.pim_raizesurbanas.R;
 
 import model.Cliente;
+import services.ClienteApiService;
 //import services.ClienteApiService;
 
 public class DetalheClienteActivity extends AppCompatActivity { // Declara DetalheClienteActivity, que herda de AppCompatActivity.
@@ -41,14 +42,14 @@ public class DetalheClienteActivity extends AppCompatActivity { // Declara Detal
         TextView textNome = findViewById(R.id.textNome); // Campo que exibe o nome.
         TextView textTelefone = findViewById(R.id.textTelefone); // Campo que exibe o telefone.
         TextView textEmail = findViewById(R.id.textEmail); // Campo que exibe o e-mail.
-
+        TextView textSenha = findViewById(R.id.textSenha);
 
         // Se o objeto Cliente não for nulo, exibe os valores nos campos.
         if (cliente != null) {
             textNome.setText(cliente.getNome());
             textTelefone.setText(cliente.getTelefone());
             textEmail.setText(cliente.getEmail());
-
+            textSenha.setText(cliente.getSenha());
         }
 
         // Botão Confirmar, que exibe uma mensagem ao ser pressionado.
@@ -56,11 +57,11 @@ public class DetalheClienteActivity extends AppCompatActivity { // Declara Detal
         btnConfirmarCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*try {
+                try {
                     ClienteApiService.addCliente(cliente);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
-                }*/
+                }
                 Toast.makeText(DetalheClienteActivity.this, "Cadastro confirmado com sucesso", Toast.LENGTH_SHORT).show(); // Exibe mensagem.
             }
         });
