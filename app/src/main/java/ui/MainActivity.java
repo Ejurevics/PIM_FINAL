@@ -6,15 +6,12 @@ import android.view.View; // Importa a classe View, usada para capturar interaç
 import android.widget.Button; // Importa a classe Button para criar botões na interface.
 import android.widget.EditText; // Importa a classe EditText para campos de entrada de texto.
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge; // Importa EdgeToEdge para otimizar o uso da tela cheia.
 import androidx.appcompat.app.AppCompatActivity; // Importa AppCompatActivity, que fornece compatibilidade entre versões do Android.
 import androidx.core.graphics.Insets; // Importa a classe Insets para gerenciar margens do sistema.
 import androidx.core.view.ViewCompat; // Importa ViewCompat para lidar com configurações de View.
 import androidx.core.view.WindowInsetsCompat; // Importa WindowInsetsCompat para gerenciar margens do sistema em views.
-
 import com.example.pim_raizesurbanas.R;
-
 import model.Cliente;
 import services.ClienteApiService;
 
