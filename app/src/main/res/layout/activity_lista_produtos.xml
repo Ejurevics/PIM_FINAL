@@ -1,21 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tituloProdutos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lista de Produtos"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+    <!-- Imagem do Produto -->
+    <!-- Imagem placeholder -->
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="8dp"/>
 
-    <ListView
-        android:id="@+id/listaProdutos"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <!-- Nome do Produto -->
+
+    <ImageView
+        android:id="@+id/productImage"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:src="@drawable/logoraizes"
+
+
+
+    <TextView
+        android:id="@+id/product"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:text="Produto"
+        android:textSize="24sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        android:textStyle="bold"/>
+
+    <!-- 4 CheckBoxes, um abaixo do outro -->
+    <CheckBox
+        android:id="@+id/checkboxOption1"
+        android:drawableRight="@drawable/"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:text="ALFACE LISA" />
+
+    <ImageView
+        android:id="@+id/productImage"
+        app:
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/lisa"
+
+    <CheckBox
+        android:id="@+id/checkboxOption2"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:text="ALFACE ROXA" />
+    <ImageView
+        android:id="@+id/productImage"
+        app:
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/roxa"
+    <CheckBox
+        android:id="@+id/checkboxOption3"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:text="ALFACE CRESPA" />
+
+    <ImageView
+        android:id="@+id/productImage"
+        app:
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/crespa"
+        android
+
+
 
 </LinearLayout>
