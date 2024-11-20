@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Imagem do Produto -->
+        <ImageView
+            android:id="@+id/imagemProduto"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/lisa" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="16dp">
+
+            <!-- Nome do Produto -->
+            <TextView
+                android:id="@+id/nomeProduto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Produto Nome"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Descrição do Produto -->
+            <TextView
+                android:id="@+id/descricaoProduto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descrição breve do produto"
+                android:textSize="12sp" />
+
+            <!-- Preço do Produto -->
+            <TextView
+                android:id="@+id/precoProduto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R$ 10.00"
+                android:textColor="@android:color/holo_red_dark"
+                android:textStyle="bold" />
+
+            <!-- Quantidade do Produto -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <!-- Botão de Remover -->
+                <Button
+                    android:id="@+id/btRemoverQuantidade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Remover"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="#9B111E" />
+
+                <!-- Quantidade do Produto -->
+                <TextView
+                    android:id="@+id/quantidadeProduto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:textSize="16sp" />
+
+                <!-- Botão de Adicionar -->
+                <Button
+                    android:id="@+id/btAdicionarQuantidade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Adicionar"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="#008000" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+

@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity { // Declara MainActivity, q
             return insets;
         });
 
+        /*Intent intent = new Intent(this, ListaProdutosActivity.class);
+        startActivity(intent);*/
 
         // Declara e inicializa os campos de entrada e o botão.
         EditText txtEmail = findViewById(R.id.txtEmail); // Campo para o e-mail.
@@ -82,7 +84,6 @@ public class MainActivity extends AppCompatActivity { // Declara MainActivity, q
                 }).start(); // Inicia a thread.
             }
         });
-
 
         Button cadastrarButton = findViewById(R.id.buttonSubmit2);
         cadastrarButton.setOnClickListener(new View.OnClickListener() {

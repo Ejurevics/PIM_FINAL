@@ -1,62 +1,45 @@
 package model;
 
-import java.math.BigDecimal;
+import android.annotation.SuppressLint;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarrinhoDeCompras {
-    private List<ItemCarrinho> itens;
-    private BigDecimal valorTotal;
+    public static List<ItemCarrinho> produtos = new ArrayList<>();
 
-    public CarrinhoDeCompras() {
-        this.itens = new ArrayList<>();
-        this.valorTotal = BigDecimal.ZERO;
+    public static List<ItemCarrinho> getCarrinhoItems() {
+        return produtos;
     }
 
-    // Método para adicionar um item ao carrinho
-    public void adicionarItem(Produto produto, int quantidade) {
-        for (ItemCarrinho item : itens) {
-            if (item.getProduto().getId() == produto.getId()) {
-                item.setQuantidade(item.getQuantidade() + quantidade);
-                atualizarValorTotal();
-                return;
-            }
+    public static void addCarrinhoItem(ItemCarrinho item) {
+        produtos.add(item); atualizarTotal();
+    }
+    public static void delCarrinhoItem(ItemCarrinho item) { produtos.remove(item); atualizarTotal(); }
+
+    @SuppressLint("DefaultLocale")
+    public static String getTotal(){
+        if(produtos.isEmpty()){
+            return "R$ 00.00";
         }
-        // Se o item não está no carrinho, cria um novo
-        ItemCarrinho novoItem = new ItemCarrinho();
-        novoItem.setProduto(produto);
-        novoItem.setQuantidade(quantidade);
-        novoItem.setPrecoUnitario(produto.getPreco());
-        itens.add(novoItem);
-        atualizarValorTotal();
+        else {
+            return String.format("R$ %.2f", atualizarTotal());
+        }
+    }
+    
+    private static double atualizarTotal() {
+        if(getCarrinhoItems().isEmpty()){
+            return 0;
+        }
+        else{
+            double total = 0;
+            for (ItemCarrinho item : produtos) {
+                total += item.getSubTotal();
+            }
+            return total;
+        }
     }
 
-    // Método para remover um item do carrinho
-    public void removerItem(Produto produto) {
-        itens.removeIf(item -> item.getProduto().getId() == produto.getId());
-        atualizarValorTotal();
-    }
 
-    // Método para calcular e atualizar o valor total
-    private void atualizarValorTotal() {
-        valorTotal = itens.stream()
-                .map(item -> item.getPrecoUnitario().multiply(new BigDecimal(item.getQuantidade())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
 
-    // Getter para o valor total
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    // Getter para os itens
-    public List<ItemCarrinho> getItens() {
-        return itens;
-    }
-
-    // Método para limpar o carrinho
-    public void limparCarrinho() {
-        itens.clear();
-        valorTotal = BigDecimal.ZERO;
-    }
 }

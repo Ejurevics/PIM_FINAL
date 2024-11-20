@@ -1,13 +1,25 @@
 package model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Produto {
+public class Produto implements Serializable {
     private int id;
     private String nome;
     private String descricao;
     private BigDecimal preco;
     private int quantidadeEmEstoque;
+
+    public Produto(int id, String nome, String descricao, BigDecimal preco, int quantidadeEmEstoque) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.quantidadeEmEstoque = quantidadeEmEstoque;
+    }
+
+    public Produto() {
+    }
 
     // Getters e Setters
     public int getId() { return id; }

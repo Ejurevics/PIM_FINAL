@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,7 +16,18 @@
         android:theme="@style/Theme.Pim_RaizesUrbanas"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name="ui.resumoPedidoActivity"
+            android:exported="false" />
+        <activity
+            android:name="ui.TelaPedidoActivity"
+            android:exported="false" />
+        <activity
+            android:name="ui.DetalheProdutoActivity"
+            android:exported="false" />
+        <activity
+            android:name="ui.CarrinhoActivity"
+            android:exported="false" />
         <activity
             android:name="ui.DetalheClienteActivity"
             android:exported="false" />
@@ -22,13 +36,12 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ui.CadastroClienteActivity"></activity>
-        <activity android:name="ui.ListaProdutosActivity"></activity>
-
+        <activity android:name="ui.CadastroClienteActivity" />
+        <activity android:name="ui.ListaProdutosActivity" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>

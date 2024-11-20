@@ -1,16 +1,24 @@
 package model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ItemCarrinho {
+public class ItemCarrinho  implements Serializable {
     private Produto produto;
     private int quantidade;
     private BigDecimal precoUnitario;
 
-    public ItemCarrinho() {
+    public ItemCarrinho(Produto produto, int quantidade, BigDecimal precoUnitario) {
         this.produto = produto;
         this.quantidade = quantidade;
         this.precoUnitario = precoUnitario;
+    }
+
+    public ItemCarrinho(){}
+
+
+    public Double getSubTotal(){
+        return getPrecoUnitario().doubleValue() * getQuantidade();
     }
 
     // Getters e Setters
