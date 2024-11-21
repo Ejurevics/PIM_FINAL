@@ -29,15 +29,15 @@ public class ListaProdutosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_produtos); // Define o layout da Activity.
+        setContentView(R.layout.activity_lista_produtos);
 
         // Instanciação do Recycler View
         RecyclerView recyclerView = findViewById(R.id.recyclerViewProdutos);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        produtos.add(new Produto(R.drawable.lisa,"Alface Lisa", "Folhas macias e suaves.", new BigDecimal("4.00"), 10));
-        produtos.add(new Produto(R.drawable.roxa,"Alface Roxa", "Folhas roxas com antioxidantes.", new BigDecimal("6.00"), 10));
-        produtos.add(new Produto(R.drawable.crespa,"Alface Crespa", "Folhas crocantes e sabor suave.", new BigDecimal("5.00"), 20));
+        produtos.add(new Produto(R.drawable.lisa,"Alface Lisa", "Alface Lisa fresca, de folhas verdes e crocantes, ideal para saladas e sanduíches. Com sabor suave e textura macia, é uma opção saudável e refrescante para suas refeições diárias. Cultivada com cuidado, garantindo qualidade e frescor em cada folha. Perfeita para acompanhar seus pratos ou ser a base de uma deliciosa salada.", new BigDecimal("6.00"), 15));
+        produtos.add(new Produto(R.drawable.roxa,"Alface Roxa", "Alface Roxa fresca, com folhas macias e crocantes, trazendo um sabor suave e levemente adocicado. Ideal para adicionar cor e frescor às suas saladas, sanduíches e pratos diversos. Cultivada com cuidado para garantir alta qualidade e frescor em cada folha. Perfeita para dar um toque especial às suas refeições, além de ser uma opção nutritiva e cheia de sabor.", new BigDecimal("5.00"), 15));
+        produtos.add(new Produto(R.drawable.crespa,"Alface Crespa", "Alface Crespa fresca, com folhas delicadas e crocantes, oferecendo um sabor suave e refrescante. Sua textura única adiciona um toque especial a saladas, sanduíches e pratos variados. Cultivada com cuidado para garantir qualidade e frescor em cada folha. Perfeita para trazer mais leveza e sabor às suas refeições, além de ser uma opção saudável e nutritiva.", new BigDecimal("4.00"), 15));
 
         ProdutoAdapter adapter = new ProdutoAdapter(produtos);
         recyclerView.setAdapter(adapter);
