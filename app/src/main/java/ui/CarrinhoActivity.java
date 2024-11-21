@@ -26,7 +26,7 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoDeCom
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrinho);
 
-        resumoCompra = findViewById(R.id.resumoCompra); // A TextView que exibe o total
+        resumoCompra = findViewById(R.id.resumoCompra); // TextView que exibe o total
 
         // Inicialize o RecyclerView e o Adapter
         RecyclerView recyclerView = findViewById(R.id.rvCarrinho);
@@ -51,7 +51,6 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoDeCom
                 }
             }
         });
-
     }
 
     @Override
