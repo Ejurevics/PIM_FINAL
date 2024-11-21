@@ -66,20 +66,41 @@ public class EditarPerfilActivity extends AppCompatActivity {
         String email = textEmail.getText().toString().trim();
         String senha = textSenha.getText().toString().trim();
 
+        // Validação de campos vazios
         if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || senha.isEmpty()) {
             Toast.makeText(this, "Todos os campos devem ser preenchidos", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        // Validação do Email
+        if (!email.contains("@")) {
+            Toast.makeText(this, "O email deve conter o caractere '@'", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validação do Telefone
+        if (!telefone.matches("^\\d{2}\\d{9}$")) {
+            Toast.makeText(this, "O telefone deve conter o DDD e ter 11 dígitos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validação da Senha
+        if (senha.length() < 8) {
+            Toast.makeText(this, "A senha deve ter pelo menos 8 dígitos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Criação do objeto Cliente com os dados validados
         Cliente clienteAtualizado = new Cliente();
         clienteAtualizado.setNome(nome);
         clienteAtualizado.setTelefone(telefone);
         clienteAtualizado.setEmail(email);
         clienteAtualizado.setSenha(senha);
 
-        long id = 15;
+        long id = 15;  // Você pode passar o ID do cliente que está atualizando
         new AtualizarClienteTask().execute(id, clienteAtualizado);
     }
+
 
     private class AtualizarClienteTask extends AsyncTask<Object, Void, String> {
 
