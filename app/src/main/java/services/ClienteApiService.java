@@ -130,9 +130,10 @@ public class ClienteApiService {
         // Cria um objeto JSON com os dados do cliente.
         JSONObject jsonCliente = new JSONObject();
         jsonCliente.put("nome", cliente.getNome()); // Adiciona o nome ao objeto JSON.
+        jsonCliente.put("telefone", cliente.getTelefone());
         jsonCliente.put("email", cliente.getEmail()); // Adiciona o email ao objeto JSON.
         jsonCliente.put("senha", cliente.getSenha());
-        jsonCliente.put("telefone", cliente.getTelefone());
+
 
         // Envia o JSON com os dados do cliente.
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
@@ -171,7 +172,9 @@ public class ClienteApiService {
         // Cria um objeto JSON com os dados atualizados do cliente.
         JSONObject jsonCliente = new JSONObject();
         jsonCliente.put("nome", cliente.getNome()); // Adiciona o nome atualizado ao objeto JSON.
+        jsonCliente.put("telefone", cliente.getTelefone());
         jsonCliente.put("email", cliente.getEmail()); // Adiciona o email atualizado ao objeto JSON.
+        jsonCliente.put("senha", cliente.getSenha());
 
         // Envia o JSON com os dados atualizados do cliente.
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));

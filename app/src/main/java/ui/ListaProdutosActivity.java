@@ -50,5 +50,13 @@ public class ListaProdutosActivity extends AppCompatActivity {
             }
         });
 
+        ((ImageButton) findViewById(R.id.btPerfil)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ListaProdutosActivity.this, EditarPerfilActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

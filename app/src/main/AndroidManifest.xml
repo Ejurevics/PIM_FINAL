@@ -42,7 +42,7 @@
         </activity>
         <activity android:name="ui.CadastroClienteActivity" />
         <activity android:name="ui.ListaProdutosActivity" />
-        <activity android:name="ui.EditarClienteActivity" />
+        <activity android:name="ui.EditarPerfilActivity" />
 
     </application>
 
