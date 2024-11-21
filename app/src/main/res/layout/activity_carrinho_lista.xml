@@ -41,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Descrição breve do produto"
+                android:visibility="gone"
                 android:textSize="12sp" />
 
             <!-- Preço do Produto -->
