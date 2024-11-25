@@ -97,8 +97,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
         clienteAtualizado.setEmail(email);
         clienteAtualizado.setSenha(senha);
 
-        long id = 15;  // Você pode passar o ID do cliente que está atualizando
-        new AtualizarClienteTask().execute(id, clienteAtualizado);
+        // Passando o email em vez do id
+        new AtualizarClienteTask().execute(email, clienteAtualizado);
     }
 
 
@@ -106,11 +106,12 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Object... params) {
-            long id = (Long) params[0];
+            String email = (String) params[0];
             Cliente clienteAtualizado = (Cliente) params[1];
 
             try {
-                return ClienteApiService.updateCliente(id, clienteAtualizado);
+                // Atualizando cliente utilizando o email
+                return ClienteApiService.updateCliente(email, clienteAtualizado);
             } catch (Exception e) {
                 e.printStackTrace();
                 return "Erro ao atualizar os dados do cliente.";
@@ -123,4 +124,3 @@ public class EditarPerfilActivity extends AppCompatActivity {
         }
     }
 }
-

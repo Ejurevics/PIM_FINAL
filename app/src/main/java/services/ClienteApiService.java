@@ -157,13 +157,13 @@ public class ClienteApiService {
      *
      * Propósito: Envia uma requisição HTTP PUT para atualizar os dados de um cliente existente na API.
      *
-     * @param id - ID do cliente a ser atualizado.
+     * @param email - Email do cliente a ser atualizado.
      * @param cliente - Objeto Cliente contendo os novos dados do cliente.
      * @return String - Resposta da API indicando sucesso ou erro da operação.
      * @throws Exception - Pode lançar exceções relacionadas a operações de rede e JSON.
      */
-    public static String updateCliente(long id, Cliente cliente) throws Exception {
-        URL url = new URL(BASE_URL + "/atualizar/" + id); // Cria a URL completa para a operação de atualização.
+    public static String updateCliente(String email, Cliente cliente) throws Exception {
+        URL url = new URL(BASE_URL + "/atualizar/" + email); // Cria a URL completa para a operação de atualização usando o email.
         HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // Abre uma conexão HTTP.
         conn.setRequestMethod("PUT"); // Define o método da requisição como PUT.
         conn.setRequestProperty("Content-Type", "application/json"); // Define o tipo de conteúdo como JSON.
@@ -192,6 +192,8 @@ public class ClienteApiService {
         reader.close();
         return result.toString(); // Retorna a resposta da API.
     }
+
+
 
     /**
      * Método deleteCliente()

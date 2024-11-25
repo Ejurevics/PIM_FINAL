@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                                 // Se o login foi bem-sucedido, inicia a ListaProdutosActivity.
                                 Intent intent = new Intent(MainActivity.this, ListaProdutosActivity.class);
                                 intent.putExtra("CLIENTE", cliente);
+                                Intent intent2 = new Intent(MainActivity.this, EditarPerfilActivity.class);
+                                intent2.putExtra("CLIENTE", cliente);
                                 Toast.makeText(MainActivity.this, "Login confirmado com sucesso", Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                             } else {
