@@ -83,21 +83,7 @@ public class TelaPedidoActivity extends AppCompatActivity {
         });
 
         List<Endereco> enderecos = new ArrayList<>();
-        enderecos.add(new Endereco(
-                random.nextInt(1000), // ID aleatório entre 0 e 999
-                "Rua " + (random.nextInt(100) + 1), // Rua fictícia, exemplo "Rua 1"
-                String.valueOf(random.nextInt(300) + 1), // Número aleatório entre 1 e 300
-                "Complemento " + (random.nextInt(10) + 1), // Complemento fictício
-                String.format("%05d", random.nextInt(99999)) // CEP aleatório no formato "CEPXXXXX"
-        ));
-        enderecos.add(new Endereco(
-                random.nextInt(1000), // ID aleatório entre 0 e 999
-                "Rua " + (random.nextInt(100) + 1), // Rua fictícia, exemplo "Rua 1"
-                String.valueOf(random.nextInt(300) + 1), // Número aleatório entre 1 e 300
-                "Complemento " + (random.nextInt(10) + 1), // Complemento fictício
-                String.format("%05d", random.nextInt(99999)) // CEP aleatório no formato "CEPXXXXX"
-        ));
-
+        enderecos.add(new Endereco());
 
         ArrayAdapter<Endereco> adapterEndereco = new ArrayAdapter<>(
                 this,

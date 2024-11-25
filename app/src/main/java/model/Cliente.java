@@ -9,37 +9,91 @@ public class Cliente implements Serializable {
     private String email;
     private String senha;
     private String telefone;
-    //private Endereco endereco;
+    private String rua;
+    private int numero;
 
-    public Cliente(){
+    public Cliente() {
         this.id = ++contador;
     }
 
-    // Construtor
-    public Cliente(String nome, String email, String telefone, String senha) {
+    // Construtor atualizado
+    public Cliente(String nome, String email, String telefone, String senha, String rua, int numero) {
+        this.id = ++contador; // Garante que o ID seja gerado automaticamente
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.senha = senha;
-        //this.endereco = endereco;
+        this.rua = rua;
+        this.numero = numero;
     }
 
     // Getters e Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getNome() {
+        return nome;
+    }
 
-    public String getSenha() { return senha; }
-    public void setSenha(String senha) { this.senha = senha; }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public String getTelefone() { return telefone; }
-    public void setTelefone(String telefone) { this.telefone = telefone; }
+    public String getEmail() {
+        return email;
+    }
 
-    /*public Endereco getEndereco() { return endereco; }
-    public void setEndereco(Endereco endereco) { this.endereco = endereco; }*/
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", rua='" + rua + '\'' +
+                ", numero=" + numero +
+                '}';
+    }
 }

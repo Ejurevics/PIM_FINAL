@@ -130,10 +130,11 @@ public class ClienteApiService {
         // Cria um objeto JSON com os dados do cliente.
         JSONObject jsonCliente = new JSONObject();
         jsonCliente.put("nome", cliente.getNome()); // Adiciona o nome ao objeto JSON.
-        jsonCliente.put("telefone", cliente.getTelefone());
+        jsonCliente.put("telefone", cliente.getTelefone()); // Adiciona o telefone.
         jsonCliente.put("email", cliente.getEmail()); // Adiciona o email ao objeto JSON.
-        jsonCliente.put("senha", cliente.getSenha());
-
+        jsonCliente.put("senha", cliente.getSenha()); // Adiciona a senha ao objeto JSON.
+        jsonCliente.put("rua", cliente.getRua()); // Adiciona o campo "rua".
+        jsonCliente.put("numero", cliente.getNumero()); // Adiciona o campo "numero".
 
         // Envia o JSON com os dados do cliente.
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
@@ -151,6 +152,7 @@ public class ClienteApiService {
         reader.close();
         return result.toString(); // Retorna a resposta da API.
     }
+
 
     /**
      * Método updateCliente()
@@ -220,4 +222,44 @@ public class ClienteApiService {
         reader.close();
         return result.toString(); // Retorna a resposta da API.
     }
+
+    /**
+     * Método buscarEnderecoCliente()
+     *
+     * Propósito: Envia uma requisição HTTP GET para buscar o endereço (rua e número) de um cliente.
+     *
+     * @param clienteId - ID do cliente cujas informações de endereço serão buscadas.
+     * @return String - JSON contendo rua e número do cliente, ou mensagem de erro.
+     * @throws Exception - Pode lançar exceções relacionadas a operações de rede e JSON.
+     */
+    public static String buscarEnderecoCliente(int clienteId) throws Exception {
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(BASE_URL + "/clientes/" + clienteId + "/endereco"); // Endpoint para buscar endereço.
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Content-Type", "application/json");
+
+            int responseCode = conn.getResponseCode(); // Obtém o código de resposta da requisição.
+            if (responseCode == HttpURLConnection.HTTP_OK) { // Verifica se a resposta foi bem-sucedida.
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder result = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+                reader.close();
+                return result.toString(); // Retorna os dados do endereço como JSON.
+            } else {
+                return "Erro ao buscar endereço: " + responseCode; // Retorna mensagem de erro.
+            }
+        } catch (IOException e) {
+            throw new Exception("Erro de IO: " + e.getMessage(), e);
+        } finally {
+            if (conn != null) {
+                conn.disconnect(); // Fecha a conexão.
+            }
+        }
+    }
+
 }

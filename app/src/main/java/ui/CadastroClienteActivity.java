@@ -25,6 +25,8 @@ public class CadastroClienteActivity extends AppCompatActivity {
         EditText txtTelefone = findViewById(R.id.txtTelefone);
         EditText txtEmail = findViewById(R.id.txtEmail);
         EditText txtSenha = findViewById(R.id.txtSenha);
+        EditText txtRua = findViewById(R.id.txtRua); // Novo campo para Rua
+        EditText txtNumero = findViewById(R.id.txtNumero); // Novo campo para Número
         Button buttonSubmit = findViewById(R.id.buttonSubmit);
 
         // Define ação para o botão de enviar os dados.
@@ -36,9 +38,11 @@ public class CadastroClienteActivity extends AppCompatActivity {
                 String telefone = txtTelefone.getText().toString().trim();
                 String email = txtEmail.getText().toString().trim();
                 String senha = txtSenha.getText().toString().trim();
+                String rua = txtRua.getText().toString().trim(); // Captura o valor da Rua
+                String numero = txtNumero.getText().toString().trim(); // Captura o valor do Número
 
                 // Validação de campos vazios
-                if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+                if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || senha.isEmpty() || rua.isEmpty() || numero.isEmpty()) {
                     Toast.makeText(CadastroClienteActivity.this, "Todos os campos devem ser preenchidos", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -61,8 +65,14 @@ public class CadastroClienteActivity extends AppCompatActivity {
                     return;
                 }
 
+                // Validação do número
+                if (!numero.matches("^\\d+$")) {
+                    Toast.makeText(CadastroClienteActivity.this, "O número deve conter apenas dígitos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 // Cria um objeto Cliente com os dados validados
-                Cliente cliente = new Cliente(nome, email, telefone, senha);
+                Cliente cliente = new Cliente(nome, email, telefone, senha, rua, Integer.parseInt(numero));
 
                 // Cria uma Intent para enviar o objeto Cliente para a DetalheClienteActivity
                 Intent intent = new Intent(CadastroClienteActivity.this, DetalheClienteActivity.class);
