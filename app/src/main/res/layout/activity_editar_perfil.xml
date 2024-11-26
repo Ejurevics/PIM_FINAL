@@ -164,4 +164,19 @@
         app:layout_constraintTop_toBottomOf="@id/textSenha"
         app:layout_constraintWidth_percent="0.8" />
 
+    <!-- Botão de Excluir -->
+    <Button
+        android:id="@+id/btnExcluirCadastro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#F44336"
+        android:text="Excluir Cadastro"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnEditarCadastro"
+        app:layout_constraintWidth_percent="0.8" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

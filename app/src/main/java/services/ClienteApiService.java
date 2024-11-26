@@ -196,32 +196,33 @@ public class ClienteApiService {
     }
 
 
-
     /**
      * Método deleteCliente()
      *
      * Propósito: Envia uma requisição HTTP DELETE para deletar um cliente existente na API.
      *
-     * @param id - ID do cliente a ser deletado.
+     //* @param id - ID do cliente a ser deletado.
      * @return String - Resposta da API indicando sucesso ou erro da operação.
      * @throws Exception - Pode lançar exceções relacionadas a operações de rede.
      */
-    public static String deleteCliente(long id) throws Exception {
-        URL url = new URL(BASE_URL + "/deletar/" + id); // Cria a URL completa para a operação de exclusão.
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // Abre uma conexão HTTP.
-        conn.setRequestMethod("DELETE"); // Define o método da requisição como DELETE.
-        conn.setRequestProperty("Content-Type", "application/json"); // Define o tipo de conteúdo como JSON.
+    public static String deleteCliente(String email) throws Exception {
+        // URL base para a API com o endpoint ajustado para excluir pelo e-mail
+        URL url = new URL(BASE_URL + "/deletar?email=" + email); // Supondo que o endpoint aceite o e-mail como query parameter
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // Abre a conexão HTTP
+        conn.setRequestMethod("DELETE"); // Define o método como DELETE
+        conn.setRequestProperty("Content-Type", "application/json"); // Define o tipo de conteúdo como JSON
 
-        // Lê a resposta da API.
+        // Lê a resposta da API
         BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         StringBuilder result = new StringBuilder();
         String line;
-        while ((line = reader.readLine()) != null) { // Lê cada linha da resposta.
+        while ((line = reader.readLine()) != null) {
             result.append(line);
         }
         reader.close();
-        return result.toString(); // Retorna a resposta da API.
+        return result.toString(); // Retorna a resposta da API
     }
+
 
     /**
      * Método buscarEnderecoCliente()
