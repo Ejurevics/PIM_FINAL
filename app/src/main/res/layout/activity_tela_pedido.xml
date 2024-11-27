@@ -46,7 +46,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/border_rounded"/> <!-- Aplicando o drawable de borda arredondada -->
+        android:background="@drawable/border_rounded"/>
 
     <!-- Opções de Pagamento -->
     <TextView
@@ -68,9 +68,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
-        android:background="@drawable/border_rounded"> <!-- Aplicando bordas arredondadas no RadioGroup -->
+        android:background="@drawable/border_rounded">
 
-        <!-- Opções de pagamento -->
         <RadioButton
             android:id="@+id/radioCartaoCredito"
             android:layout_width="wrap_content"
@@ -90,29 +89,33 @@
             android:text="PIX" />
     </RadioGroup>
 
-    <!-- Escolha do Endereço -->
+    <!-- Exibição do Endereço do Cliente -->
     <TextView
         android:id="@+id/textEndereco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Escolha o Endereço de Entrega:"
+        android:text="Endereço de Entrega:"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/radioGroupPagamento"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp" />
 
-    <Spinner
-        android:id="@+id/spinnerEndereco"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/enderecoCliente"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Endereço de Cliente Aqui"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
         app:layout_constraintTop_toBottomOf="@id/textEndereco"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/border_rounded" /> <!-- Aplicando bordas arredondadas no Spinner -->
+        android:background="@drawable/border_rounded"/>
+
 
     <!-- Botão para Finalizar Pedido -->
     <Button
@@ -123,7 +126,7 @@
         android:backgroundTint="#008000"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/spinnerEndereco"
+        app:layout_constraintTop_toBottomOf="@id/enderecoCliente"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginLeft="16dp"

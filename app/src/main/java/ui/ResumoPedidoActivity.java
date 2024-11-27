@@ -2,20 +2,13 @@ package ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.example.pim_raizesurbanas.R;
-
 import model.CarrinhoDeCompras;
 
-public class resumoPedidoActivity extends AppCompatActivity {
+public class ResumoPedidoActivity extends AppCompatActivity {
     TextView pedidoResumo, pedidoValor;
 
     @Override
@@ -31,7 +24,5 @@ public class resumoPedidoActivity extends AppCompatActivity {
 
         pedidoResumo.setText(resumo);
         pedidoValor.setText(CarrinhoDeCompras.getTotal());
-
-
     }
 }

@@ -49,7 +49,7 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoDeCom
                     Toast.makeText(CarrinhoActivity.this, "Não é possível prosseguir com o carrinho vazio", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(CarrinhoActivity.this, TelaPedidoActivity.class);
-                    intent.putExtra("EMAIL", email); // Passa o email para a próxima Activity
+                    intent.putExtra("EMAIL", email);
                     startActivity(intent);
                 }
             }

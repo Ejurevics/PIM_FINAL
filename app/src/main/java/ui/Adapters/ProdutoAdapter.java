@@ -45,7 +45,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
         // Configurando o clique no botão
         holder.btComprar.setOnClickListener(v -> {
             Intent intent = new Intent(holder.itemView.getContext(), DetalheProdutoActivity.class);
-            intent.putExtra("produto", produto); // Certifique-se de que Produto implementa Serializable ou Parcelable
+            intent.putExtra("produto", produto);
             holder.itemView.getContext().startActivity(intent);
         });
     }

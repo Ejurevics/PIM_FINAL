@@ -3,7 +3,7 @@ package services;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.net.URLEncoder;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -223,26 +223,27 @@ public class ClienteApiService {
         return result.toString(); // Retorna a resposta da API
     }
 
-
     /**
      * Método buscarEnderecoCliente()
      *
-     * Propósito: Envia uma requisição HTTP GET para buscar o endereço (rua e número) de um cliente.
+     * Propósito: Envia uma requisição HTTP GET para buscar o endereço (rua e número) de um cliente usando o e-mail.
      *
-     * @param clienteId - ID do cliente cujas informações de endereço serão buscadas.
-     * @return String - JSON contendo rua e número do cliente, ou mensagem de erro.
+     * @param email - E-mail do cliente cujas informações de endereço serão buscadas.
+     * @return String - Rua e número do cliente ou mensagem de erro.
      * @throws Exception - Pode lançar exceções relacionadas a operações de rede e JSON.
      */
-    public static String buscarEnderecoCliente(int clienteId) throws Exception {
+    public static String buscarEnderecoCliente(String email) throws Exception {
         HttpURLConnection conn = null;
         try {
-            URL url = new URL(BASE_URL + "/clientes/" + clienteId + "/endereco"); // Endpoint para buscar endereço.
+            // URL do endpoint ajustado para incluir o e-mail como parâmetro de consulta
+            URL url = new URL(BASE_URL + "/clientes/endereco?email=" + URLEncoder.encode(email, "UTF-8"));
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Content-Type", "application/json");
 
-            int responseCode = conn.getResponseCode(); // Obtém o código de resposta da requisição.
-            if (responseCode == HttpURLConnection.HTTP_OK) { // Verifica se a resposta foi bem-sucedida.
+            // Verifica o código de resposta
+            int responseCode = conn.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuilder result = new StringBuilder();
                 String line;
@@ -250,17 +251,27 @@ public class ClienteApiService {
                     result.append(line);
                 }
                 reader.close();
-                return result.toString(); // Retorna os dados do endereço como JSON.
+
+                // Processar o JSON e extrair rua e número
+                JSONObject enderecoObj = new JSONObject(result.toString());
+                String rua = enderecoObj.getString("rua");
+                String numero = enderecoObj.getString("numero");
+
+                // Retornar o endereço formatado
+                return rua + ", " + numero;
             } else {
-                return "Erro ao buscar endereço: " + responseCode; // Retorna mensagem de erro.
+                return "Erro ao buscar endereço: Código de resposta " + responseCode;
             }
         } catch (IOException e) {
             throw new Exception("Erro de IO: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new Exception("Erro ao processar a resposta: " + e.getMessage(), e);
         } finally {
             if (conn != null) {
-                conn.disconnect(); // Fecha a conexão.
+                conn.disconnect();
             }
         }
     }
+
 
 }
