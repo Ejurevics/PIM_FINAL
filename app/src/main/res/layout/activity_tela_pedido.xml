@@ -36,7 +36,7 @@
         android:id="@+id/resumoCompra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Resumo da Compra: R$ 150,00"
+        android:text="Resumo da Compra"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -46,6 +46,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:padding="12dp"
         android:background="@drawable/border_rounded"/>
 
     <!-- Opções de Pagamento -->
@@ -62,7 +63,7 @@
 
     <RadioGroup
         android:id="@+id/radioGroupPagamento"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/textOpcoesPagamento"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +106,7 @@
         android:id="@+id/enderecoCliente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Endereço de Cliente Aqui"
+        android:text=""
         android:textSize="16sp"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toBottomOf="@id/textEndereco"
@@ -114,8 +115,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:padding="12dp"
         android:background="@drawable/border_rounded"/>
-
 
     <!-- Botão para Finalizar Pedido -->
     <Button
