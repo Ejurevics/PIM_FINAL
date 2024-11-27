@@ -25,8 +25,8 @@ public class CadastroClienteActivity extends AppCompatActivity {
         EditText txtTelefone = findViewById(R.id.txtTelefone);
         EditText txtEmail = findViewById(R.id.txtEmail);
         EditText txtSenha = findViewById(R.id.txtSenha);
-        EditText txtRua = findViewById(R.id.txtRua); // Novo campo para Rua
-        EditText txtNumero = findViewById(R.id.txtNumero); // Novo campo para Número
+        EditText txtRua = findViewById(R.id.txtRua);
+        EditText txtNumero = findViewById(R.id.txtNumero);
         Button buttonSubmit = findViewById(R.id.buttonSubmit);
 
         // Define ação para o botão de enviar os dados.
@@ -38,8 +38,8 @@ public class CadastroClienteActivity extends AppCompatActivity {
                 String telefone = txtTelefone.getText().toString().trim();
                 String email = txtEmail.getText().toString().trim();
                 String senha = txtSenha.getText().toString().trim();
-                String rua = txtRua.getText().toString().trim(); // Captura o valor da Rua
-                String numero = txtNumero.getText().toString().trim(); // Captura o valor do Número
+                String rua = txtRua.getText().toString().trim();
+                String numero = txtNumero.getText().toString().trim();
 
                 // Validação de campos vazios
                 if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || senha.isEmpty() || rua.isEmpty() || numero.isEmpty()) {
@@ -76,8 +76,8 @@ public class CadastroClienteActivity extends AppCompatActivity {
 
                 // Cria uma Intent para enviar o objeto Cliente para a DetalheClienteActivity
                 Intent intent = new Intent(CadastroClienteActivity.this, DetalheClienteActivity.class);
-                intent.putExtra("CLIENTE", cliente); // Adiciona o objeto Cliente à Intent
-                startActivity(intent); // Inicia a DetalheClienteActivity
+                intent.putExtra("CLIENTE", cliente);
+                startActivity(intent);
             }
         });
     }

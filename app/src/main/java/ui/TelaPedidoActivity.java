@@ -25,7 +25,6 @@ import model.Endereco;
 
 public class TelaPedidoActivity extends AppCompatActivity {
 
-
     Random random = new Random();
     private RadioGroup radioGroupPagamento;
     private Spinner spinnerEndereco;
@@ -47,12 +46,17 @@ public class TelaPedidoActivity extends AppCompatActivity {
         textEndereco = findViewById(R.id.textEndereco);
         textOpcoesPagamento = findViewById(R.id.textOpcoesPagamento);
 
+        // Recuperar o email da intent
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("EMAIL");
+
         resumoCompra.setText(CarrinhoDeCompras.getTotal());
+
         // Listener para o botão de finalizar pedido
         btnFinalizarPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finalizarPedido();
+                finalizarPedido(email); // Passar o email ao método
             }
         });
 
@@ -62,44 +66,36 @@ public class TelaPedidoActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton selectedRadioButton = findViewById(checkedId);
                 String tipoPagamento = selectedRadioButton.getText().toString();
-                // Exibir o tipo de pagamento selecionado
                 Toast.makeText(TelaPedidoActivity.this, "Pagamento Selecionado: " + tipoPagamento, Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Spinner (Exemplo de como capturar o estado selecionado)
         spinnerEndereco.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String enderecoSelecionado = parentView.getItemAtPosition(position).toString();
-                // Exibir o endereço selecionado
                 Toast.makeText(TelaPedidoActivity.this, "Endereço Selecionado: " + enderecoSelecionado, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // Nenhuma seleção no Spinner
             }
         });
 
+        // Configurar o Spinner com endereços fictícios
         List<Endereco> enderecos = new ArrayList<>();
         enderecos.add(new Endereco());
 
         ArrayAdapter<Endereco> adapterEndereco = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_spinner_item,  // Layout de item do Spinner
-                enderecos  // Passando o ArrayList de Enderecos
+                android.R.layout.simple_spinner_item,
+                enderecos
         );
         adapterEndereco.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-// Associando o ArrayAdapter ao Spinner
-        Spinner spinnerEndereco = findViewById(R.id.spinnerEndereco);
         spinnerEndereco.setAdapter(adapterEndereco);
-
     }
 
-    // Método para finalizar o pedido
-    private void finalizarPedido() {
+    private void finalizarPedido(String email) {
         // Coletar as informações do resumo de compra, pagamento e endereço
         String resumo = resumoCompra.getText().toString();
         int idPagamentoSelecionado = radioGroupPagamento.getCheckedRadioButtonId();
@@ -107,7 +103,7 @@ public class TelaPedidoActivity extends AppCompatActivity {
         String pagamentoSelecionado = radioButtonPagamento.getText().toString();
         String enderecoSelecionado = spinnerEndereco.getSelectedItem().toString();
 
-        // Exibir um resumo das informações
+        // Resumo da compra
         String mensagem = "Pedido Finalizado\n" +
                 "Resumo: " + resumo + "\n" +
                 "Pagamento: " + pagamentoSelecionado + "\n" +
@@ -115,6 +111,7 @@ public class TelaPedidoActivity extends AppCompatActivity {
 
         Intent intent = new Intent(TelaPedidoActivity.this, resumoPedidoActivity.class);
         intent.putExtra("Resumo", mensagem);
+        intent.putExtra("EMAIL", email);
         startActivity(intent);
     }
 }

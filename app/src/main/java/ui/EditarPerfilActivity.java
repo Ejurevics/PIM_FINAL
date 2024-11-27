@@ -14,7 +14,7 @@ import services.ClienteApiService;
 public class EditarPerfilActivity extends AppCompatActivity {
 
     private EditText textNome, textTelefone, textEmail, textSenha;
-    private Button btnSalvarCadastro, btnExcluirCadastro; // Botão de salvar e excluir cadastro
+    private Button btnSalvarCadastro, btnExcluirCadastro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         textEmail.setEnabled(true);
         textSenha.setEnabled(true);
 
-        btnSalvarCadastro.setText("Salvar Alterações"); // O botão já inicia com a funcionalidade de salvar.
+        btnSalvarCadastro.setText("Salvar Alterações");
 
         // Listener para salvar alterações
         btnSalvarCadastro.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +148,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         protected void onPostExecute(String resultado) {
             Toast.makeText(EditarPerfilActivity.this, resultado, Toast.LENGTH_SHORT).show();
             if (resultado.equalsIgnoreCase("Cliente excluído com sucesso")) {
-                finish(); // Fecha a activity
+                finish();
             }
         }
     }

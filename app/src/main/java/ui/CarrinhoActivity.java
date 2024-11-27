@@ -1,6 +1,5 @@
 package ui;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +15,7 @@ import com.example.pim_raizesurbanas.R;
 
 import model.CarrinhoDeCompras;
 import ui.Adapters.CarrinhoDeComprasAdapter;
+
 public class CarrinhoActivity extends AppCompatActivity implements CarrinhoDeComprasAdapter.TotalUpdateListener {
 
     private TextView resumoCompra;
@@ -26,7 +26,7 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoDeCom
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrinho);
 
-        resumoCompra = findViewById(R.id.resumoCompra); // TextView que exibe o total
+        resumoCompra = findViewById(R.id.resumoCompra);
 
         // Inicialize o RecyclerView e o Adapter
         RecyclerView recyclerView = findViewById(R.id.rvCarrinho);
@@ -37,16 +37,19 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoDeCom
         // Defina o listener para atualizar o total
         adapter.setTotalUpdateListener(this);
 
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("EMAIL");
+
         // Caso já haja algum total inicial
         resumoCompra.setText(CarrinhoDeCompras.getTotal());
         ((Button) findViewById(R.id.btnFinalizarCompra)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(CarrinhoDeCompras.produtos.isEmpty()){
-                    Toast.makeText(CarrinhoActivity.this, "Não é possivel prosseguir com o carrinho vazio", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                if (CarrinhoDeCompras.produtos.isEmpty()) {
+                    Toast.makeText(CarrinhoActivity.this, "Não é possível prosseguir com o carrinho vazio", Toast.LENGTH_SHORT).show();
+                } else {
                     Intent intent = new Intent(CarrinhoActivity.this, TelaPedidoActivity.class);
+                    intent.putExtra("EMAIL", email); // Passa o email para a próxima Activity
                     startActivity(intent);
                 }
             }
