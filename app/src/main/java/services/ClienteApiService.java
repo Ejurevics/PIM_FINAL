@@ -159,28 +159,29 @@ public class ClienteApiService {
      *
      * Propósito: Envia uma requisição HTTP PUT para atualizar os dados de um cliente existente na API.
      *
-     * @param email - Email do cliente a ser atualizado.
+     * @param emailOriginal - Email atual do cliente no banco de dados.
      * @param cliente - Objeto Cliente contendo os novos dados do cliente.
      * @return String - Resposta da API indicando sucesso ou erro da operação.
      * @throws Exception - Pode lançar exceções relacionadas a operações de rede e JSON.
      */
-    public static String updateCliente(String email, Cliente cliente) throws Exception {
-        URL url = new URL(BASE_URL + "/atualizar/" + email); // Cria a URL completa para a operação de atualização usando o email.
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // Abre uma conexão HTTP.
-        conn.setRequestMethod("PUT"); // Define o método da requisição como PUT.
-        conn.setRequestProperty("Content-Type", "application/json"); // Define o tipo de conteúdo como JSON.
-        conn.setDoOutput(true); // Permite enviar dados na requisição.
+    public static String updateCliente(String emailOriginal, Cliente cliente) throws Exception {
+        URL url = new URL(BASE_URL + "/atualizar"); // URL genérica para atualizar clientes.
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("PUT");
+        conn.setRequestProperty("Content-Type", "application/json");
+        conn.setDoOutput(true);
 
-        // Cria um objeto JSON com os dados atualizados do cliente.
+        // Cria o objeto JSON com os dados atualizados do cliente.
         JSONObject jsonCliente = new JSONObject();
-        jsonCliente.put("nome", cliente.getNome()); // Adiciona o nome atualizado ao objeto JSON.
+        jsonCliente.put("emailOriginal", emailOriginal); // Corrigido: agora passa o e-mail original
+        jsonCliente.put("nome", cliente.getNome()); // Novos dados do cliente.
         jsonCliente.put("telefone", cliente.getTelefone());
-        jsonCliente.put("email", cliente.getEmail()); // Adiciona o email atualizado ao objeto JSON.
+        jsonCliente.put("email", cliente.getEmail()); // Novo e-mail.
         jsonCliente.put("senha", cliente.getSenha());
 
-        // Envia o JSON com os dados atualizados do cliente.
+        // Envia o JSON com os dados para a API.
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-        writer.write(jsonCliente.toString()); // Escreve o JSON no corpo da requisição.
+        writer.write(jsonCliente.toString());
         writer.flush();
         writer.close();
 
@@ -188,12 +189,16 @@ public class ClienteApiService {
         BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         StringBuilder result = new StringBuilder();
         String line;
-        while ((line = reader.readLine()) != null) { // Lê cada linha da resposta.
+        while ((line = reader.readLine()) != null) {
             result.append(line);
         }
         reader.close();
-        return result.toString(); // Retorna a resposta da API.
+
+        // Retorna a resposta da API.
+        return result.toString();
     }
+
+
 
 
     /**

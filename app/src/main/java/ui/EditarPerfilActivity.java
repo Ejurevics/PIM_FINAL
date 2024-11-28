@@ -1,5 +1,6 @@
 package ui;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -15,12 +16,14 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     private EditText textNome, textTelefone, textEmail, textSenha;
     private Button btnSalvarCadastro, btnExcluirCadastro;
+    private String emailOriginal; // Armazena o e-mail original para referência interna
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
 
+        // Inicialização dos elementos da interface
         textNome = findViewById(R.id.textNome);
         textTelefone = findViewById(R.id.textTelefone);
         textEmail = findViewById(R.id.textEmail);
@@ -28,13 +31,15 @@ public class EditarPerfilActivity extends AppCompatActivity {
         btnSalvarCadastro = findViewById(R.id.btnEditarCadastro);
         btnExcluirCadastro = findViewById(R.id.btnExcluirCadastro);
 
-        // Torna todos os campos editáveis assim que a Activity é aberta
-        textNome.setEnabled(true);
-        textTelefone.setEnabled(true);
-        textEmail.setEnabled(true);
-        textSenha.setEnabled(true);
+        // Receber o e-mail passado pela Intent (se necessário para referência interna)
+        Intent intent = getIntent();
+        emailOriginal = intent.getStringExtra("EMAIL");
 
-        btnSalvarCadastro.setText("Salvar Alterações");
+        // Deixar todos os campos editáveis e vazios
+        textEmail.setText("");
+        textNome.setText("");
+        textTelefone.setText("");
+        textSenha.setText("");
 
         // Listener para salvar alterações
         btnSalvarCadastro.setOnClickListener(new View.OnClickListener() {
@@ -56,17 +61,17 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private void salvarAlteracoes() {
         String nome = textNome.getText().toString().trim();
         String telefone = textTelefone.getText().toString().trim();
-        String email = textEmail.getText().toString().trim();
+        String emailNovo = textEmail.getText().toString().trim();
         String senha = textSenha.getText().toString().trim();
 
         // Validação de campos vazios
-        if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+        if (nome.isEmpty() || telefone.isEmpty() || emailNovo.isEmpty() || senha.isEmpty()) {
             Toast.makeText(this, "Todos os campos devem ser preenchidos", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Validação do Email
-        if (!email.contains("@")) {
+        if (!emailNovo.contains("@")) {
             Toast.makeText(this, "O email deve conter o caractere '@'", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -86,27 +91,25 @@ public class EditarPerfilActivity extends AppCompatActivity {
         Cliente clienteAtualizado = new Cliente();
         clienteAtualizado.setNome(nome);
         clienteAtualizado.setTelefone(telefone);
-        clienteAtualizado.setEmail(email);
+        clienteAtualizado.setEmail(emailNovo);
         clienteAtualizado.setSenha(senha);
 
-        new AtualizarClienteTask().execute(email, clienteAtualizado);
+        new AtualizarClienteTask().execute(emailOriginal, clienteAtualizado);
     }
 
-    private void excluirCadastro() {
-        String email = textEmail.getText().toString().trim();
 
-        // Validação do Email
-        if (email.isEmpty()) {
-            Toast.makeText(this, "O email é necessário para excluir o cadastro.", Toast.LENGTH_SHORT).show();
+    private void excluirCadastro() {
+        // Exclusão permanece inalterada
+        if (emailOriginal == null || emailOriginal.isEmpty()) {
+            Toast.makeText(this, "O e-mail original é necessário para excluir o cadastro.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Confirmação antes de excluir
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Excluir Cadastro")
                 .setMessage("Tem certeza de que deseja excluir este cadastro?")
                 .setPositiveButton("Sim", (dialog, which) -> {
-                    new ExcluirClienteTask().execute(email);
+                    new ExcluirClienteTask().execute(emailOriginal);
                 })
                 .setNegativeButton("Não", null)
                 .show();
@@ -115,11 +118,11 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private class AtualizarClienteTask extends AsyncTask<Object, Void, String> {
         @Override
         protected String doInBackground(Object... params) {
-            String email = (String) params[0];
+            String emailOriginal = (String) params[0];
             Cliente clienteAtualizado = (Cliente) params[1];
 
             try {
-                return ClienteApiService.updateCliente(email, clienteAtualizado);
+                return ClienteApiService.updateCliente(emailOriginal, clienteAtualizado);
             } catch (Exception e) {
                 e.printStackTrace();
                 return "Erro ao atualizar os dados do cliente.";
@@ -137,7 +140,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             String email = params[0];
             try {
-                return ClienteApiService.deleteCliente(email); // Chamada do serviço usando o e-mail
+                return ClienteApiService.deleteCliente(email);
             } catch (Exception e) {
                 e.printStackTrace();
                 return "Erro ao excluir o cliente.";
